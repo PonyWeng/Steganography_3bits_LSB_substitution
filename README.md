@@ -2,4 +2,4 @@
 
 Given Embedding and Extraction process, you can put your secret data into secret.txt, then embed into the image.
 
-測試版
+**Steganography for 電腦攻擊與防禦 Project2**
