@@ -11,23 +11,23 @@ import numpy as np
 import math
 import base64
 from pathlib import Path
+import os
 
-cover_image_file_name ="sea.jpg"
+    
+
+cover_image_file_name ="lena.bmp"
 secret_file = 'secret.txt'
 #output
 
-
-
-
 #input
-img = Image.open(cover_image_file_name)
+img_original = Image.open(cover_image_file_name)
 
 file_type = cover_image_file_name.split(".")[1]
 grayscale_img_filename= "gray_img."+file_type
 
 
 #轉成灰階，儲存灰階影像
-img = img.convert('L')
+img = img_original.convert('L')
 img.save(grayscale_img_filename)
 
 #複製一份作為待藏入資訊的偽裝影像
@@ -150,6 +150,17 @@ for i in secret_in_ascii_binary:
 #計算secret長度
 length_of_secret=len(secret_str_complete)
 
+EC= height * width *3
+
+if length_of_secret>EC:
+    try:
+        print("Secret Data長度(bits)：",length_of_secret ,"bits")
+        print("Secret Data容量(bytes):",length_of_secret/8,"Bytes")
+        print('secret的大小超過可嵌入的容量，請重新輸入secret')
+        os._exit(0) 
+    except:
+        print('os.exit')
+
 
 # 額外的標頭訊息處理=========================================
 length_data_mark= generate_length_data_mark(length_of_secret)
@@ -185,7 +196,7 @@ for i in range(0,length_of_secret,3):
 
 number_of_pixel_should_be_modified=len(secret_list)
 
-EC= height * width *3
+
 
 print("機密訊息的內容：")
 print("-------------------------------------------------------")
@@ -217,23 +228,44 @@ for i in range(height):
             count_secret_list+=1
         count+=1
 
-
-
 print("Secret Data的長度(bits)：",length_of_secret ,"bits","; 容量大小為",length_of_secret/8,"Bytes","(以轉換Base64後的長度計算)")
-
 print("與原始圖片計算峰值訊噪比 PSNR (越高代表越接近原始圖片，PSNR>30 為可接受範圍):")
 print("PSNR=",psnr(img,stego_img,512))
 print("=======================================================")
 
-stego_file_name= "stego."+file_type
+
+
+
+if file_type =="jpg" or file_type=="jpeg":
+    output_type = "png"    
+else:
+    output_type =file_type
+
+stego_file_name= "stego."+output_type
+
 stego_img.save(stego_file_name)
-print()
 print("藏入訊息完成，輸出圖片：",stego_file_name,"。")
 
 # print(number_of_blcok_to_record_extra_information)
 # print(number_of_pixel_should_be_modified)
 stego_img_file_size =Path(stego_file_name).stat().st_size
 
+
+
 print("=======================================================")
 print("偽裝影像的檔案大小：",float(stego_img_file_size),"Bytes", "-->" ,stego_img_file_size/1000,"KBytes","(灰階影像)")
 print("=======================================================")
+
+# print(number_of_pixel_should_be_modified)
+# print(number_of_blcok_to_record_extra_information)
+
+
+
+# print(length_data_mark)
+# print(length_data)
+
+# l1=stego_img.getpixel((0,0))
+# l2=stego_img.getpixel((0,1))
+
+# print(l1)
+# print(l2)

@@ -37,12 +37,18 @@ l2=stego_img.getpixel((0,1))
 
 l1_1=(bin(l1)[2:])
 l2_1=(bin(l2)[2:])
-mark = l1_1[-3:]+l2_1[-3:]
+
+l1_1_added=add_zero_to_head(l1_1)
+l2_1_added=add_zero_to_head(l2_1)
+
+mark = l1_1_added[-3:]+l2_1_added[-3:]
 
 length_of_data_number_of_bits = int(mark,2)
 
 number_of_pixel_should_be_extracted=length_of_data_number_of_bits//3
 number_of_bits_are_left=length_of_data_number_of_bits%3
+
+
 
 count=-2
 extra=""
@@ -66,10 +72,6 @@ for i in range(height):
 
 extra_information=mark+extra
 length_of_secret=int(extra,2)
-
-# print(len(extra_information))
-# print(len(extra_information)%3)
-
 
 if len(extra_information)%3==0:
     number_of_blcok_to_record_extra_information = len(extra_information) / 3
@@ -129,6 +131,10 @@ for i in extracted_data:
 recover_to_ascii_list=recover_to_ascii.split(" ")
 base64code= ""
 
+# print(extracted_data)
+# print(number_of_pixel_should_be_modified)
+# print(number_of_blcok_to_record_extra_information)
+
 for i in recover_to_ascii_list:
     ascii_in_decimal=int(i,2)
     plaintext=chr(ascii_in_decimal)
@@ -158,6 +164,8 @@ print("你使用了總容量中的",(length_of_secret)/(height * width * 3)*100,
 print("已取出機密訊息，輸出檔名為：extracted_data.txt")
 print("=============================================================================")
 stego_img.close()
+
+
 
 path = 'extracted_data.txt'
 with open(path, 'w',encoding="utf-8") as f:
