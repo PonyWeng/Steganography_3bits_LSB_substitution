@@ -6,10 +6,15 @@ Created on Sat Nov 26 18:53:38 2022
 """
 
 from PIL import Image
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 import math
 import base64
+
+
+stego_img_filename="stego.png"
+stego_img = Image.open(stego_img_filename)
+
 
 def add_zero_to_head(str1):
     if len(str1)!=8:
@@ -25,8 +30,7 @@ def add_zero_to_head(str1):
     
 #載入偽裝影像
 
-stego_img_filename="stego.png"
-stego_img = Image.open(stego_img_filename)
+
 
 #取得影像尺寸
 height, width =stego_img.size
