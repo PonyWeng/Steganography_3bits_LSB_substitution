@@ -25,21 +25,23 @@ Before running this program, please CHECK your python environment has been insta
 * base64
 * pathlib
 * os
+* sys
 
 ---
 
 ## How to hide your secret in the image?
 
-* **Step1.**  Put the "embedding.py", "your own image" and the "secret.txt" in the same directory.
-* **Step2.**  Open the embedding.py, then edit the variable "cover_image_file_name" to your own image name.
-* **Step3.**  Open secret.txt, then input your data into it.
-* **Step4.**  Execute the program embedding.py, then you will get a stego-image with your secret data has already embedded in it.
+* **Step1.**  Put the "Embedding.py", "{XXX.bmp/png/jpg} (Your own image)" and the "secret.txt" in the same directory.
+* **Step2.**  Open secret.txt and input the data that you want to embed into image.
+* **Step3.**  Execute ``` python Embedding.py XXX.bmp secret.txt ```   <-- Two arugments includes the image and secret.txt
+* **Step4.**  Finally, you will get a "stego.bmp" and "gray_img.bmp" in the same directory, and the secret has already embedded into the "stego.bmp".
+* **Step5.**  In the program, you can read some detail information of your image, the sizes, secret.data. PSNR value ..., etc.
 
 It can be noticed that your stego-image and cover-image are almost the same and you cannot use your eyes to detect or found if it has hidden some secret or not.
 This is the goal of "Steganography".
 
 ## How to extract the secret data from the stego-image?
 
-* **Step1.**  Put the "extraction.py", "stego-image" in the same directory.
-* **Step2.**  Open the extraction.py, then edit the variable "stego_img_filename" to your own stego-image name.
-* **Step3.**  Execute the program extraction.py, then you will get the extracted.txt and your secret data can be extracted in this file. 
+* **Step1.**  Put the "Extraction.py", "{stego-image}.bmp/png" in the same directory.
+* **Step2.**  Execute ``` python Extraction.py stego.bmp ```  <-- An arugment includes is the stego-image.
+* **Step3.**  Finally, you will get an "extracted.txt" as your secret are shown in this file, and then some information will be listed.
