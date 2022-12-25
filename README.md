@@ -43,5 +43,5 @@ This is the goal of "Steganography".
 ## How to extract the secret data from the stego-image?
 
 * **Step1.**  Put the "Extraction.py", "{stego-image}.bmp/png" in the same directory.
-* **Step2.**  Execute ``` python Extraction.py stego.bmp ```  <-- An arugment includes is the stego-image.
+* **Step2.**  Execute ``` python Extraction.py stego.bmp ```  <-- An arugment included, it is the stego-image.
 * **Step3.**  Finally, you will get an "extracted.txt" as your secret are shown in this file, and then some information will be listed.
